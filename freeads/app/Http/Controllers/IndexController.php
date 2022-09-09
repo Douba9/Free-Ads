@@ -7,6 +7,6 @@ use Illuminate\Http\Request;
 class IndexController extends Controller
 {
     function showIndex(){
-        return view('index');
+        return redirect()->route('index');
     }
 }

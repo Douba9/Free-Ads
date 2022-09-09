@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Utilisateur;
+use App\Http\Controllers\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,5 +16,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('index');
+    return view('auth/login');
 });
+
+Route::get('/profile', [Utilisateur::class, 'index'])->name('layouts.profile');
+
+Auth::routes(['verify' => true]);
+
+Route::get('/home', function () {
+    return view('app');
+})->middleware('verified');
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::resource("posts", PostController::class);
